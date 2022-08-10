@@ -5,6 +5,18 @@
         right: 0;
         width: 600px;
     }
+    .not-found{
+      position: absolute;
+      top: 50%;
+      width: 100%;
+    }
+    .yoda-frame_notfound{
+      position: relative;
+      margin:auto;
+      bottom: 0;
+      right: 0;
+      width: 600px;
+  }
     .yoda-loader{
         display:none;
     }
@@ -135,6 +147,11 @@
      }
         }
     @media only screen and (max-width: 600px) {
+      .not-found{
+        position: absolute;
+        top: 20%;
+        width: 100%;
+      }
         .yoda-frame{
             display:none;
         }
