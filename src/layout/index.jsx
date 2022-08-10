@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 // material
 //
 import Navbar from './Navbar';
+import Search from './Search';
 
 // ----------------------------------------------------------------------
 
@@ -18,6 +19,7 @@ export default function Layout() {
         <div id="stars3" />
       </div>
       <Navbar />
+      <Search />
       <Outlet />
     </div>
 

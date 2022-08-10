@@ -1,79 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button, Stack, styled, alpha,
+  Button,
 } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-import { loadDatasAsync } from '../redux/reducers/people/people.thunks';
 import List from './List';
+import Listfiltered from './Listfiltered';
 import Loader from './Loader';
 import '../assets/styles/yoga.css';
 import { ReactComponent as Reactyoda } from '../assets/yoda.svg';
+import { loadDatasAsync } from '../redux/reducers/people/people.thunks';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    margintop: '10px',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
-
+function getParameterByName(name, url) {
+  const name2 = name.replace(/[[\]]/g, '\\$&');
+  const regex = new RegExp(`[?&]${name2}(=([^&#]*)|&|#|$)`);
+  const results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 export default function Home() {
-  const dispatch = useDispatch();
   // setting page to 1 due to the page 1
+  const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [disabledprev, setNext] = useState(true);
   const { isLoading, people, errorMessage } = useSelector((state) => state.people);
+  const { films } = useSelector((state) => state.films);
   useEffect(() => {
-    dispatch(loadDatasAsync(page));
+    if (people) {
+      if (people.next) {
+        setPage(parseInt(getParameterByName('page', people.next), 10) - 1);
+      }
+    }
     if (page === 1) {
       setNext(true);
     } else {
       setNext(false);
     }
-  }, [page]);
-
-  // using page at the end of useeffect to trigger useeffect when the state of page change
-  const nextPage = () => {
+  }, [people]);
+  const nextPage = (urlvalue) => {
     setPage(page + 1);
+    dispatch(loadDatasAsync(`?${urlvalue.split('?')[1]}`));
   };
-  const prevPage = () => {
+  const prevPage = (urlvalue) => {
     if (page !== 1) {
       setPage(page - 1);
+      dispatch(loadDatasAsync(`?${urlvalue.split('?')[1]}`));
     }
   };
   // counting pages
@@ -89,70 +60,48 @@ export default function Home() {
         type="button"
         className={value === page ? 'active' : 'disabled'}
         key={value}
-        onClick={() => {
-          setPage(value);
-        }}
       >
         {value}
       </button>
     )));
   };
-  function search(value) {
-    if (value !== '') { dispatch(loadDatasAsync('', '', value)); } else {
-      setPage(1);
-    }
-  }
+
   return (
-    <>
-      <div className="container">
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={(e) => search(e.target.value)}
-            />
-          </Search>
-        </Stack>
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-md-7">
-            {isLoading && <Loader />}
-            {errorMessage && <h3>{errorMessage}</h3>}
-            {people && (
+    <div className="container front">
+      <div className="row">
+        <div className="col-12 col-md-7">
+          {isLoading && <Loader />}
+          {errorMessage && <h3>{errorMessage}</h3>}
+          {films && <div className="row"><Listfiltered people={films.characters} /></div>}
+          {people && !films && (
             <>
               <div className="d-flex justify-content-center mx-auto">
-                <Button sx={{ color: '#fff' }} onClick={() => { prevPage(); }} disabled={disabledprev}>prev</Button>
+                <Button sx={{ color: '#fff' }} onClick={() => { prevPage(people.previous); }} disabled={disabledprev}>prev</Button>
                 <div className="nav-numbers m-3">
                   <Numberspage count={people.count} />
                 </div>
-                <Button sx={{ color: '#fff' }} onClick={() => { if (people.next) { nextPage(); } }}>next</Button>
+                <Button sx={{ color: '#fff' }} onClick={() => { if (people.next) { nextPage(people.next); } }}>next</Button>
               </div>
               <div className="row">
                 {people.count === 0 && <>nothing to show</>}
                 <List people={people.results} />
               </div>
               <div className="d-flex justify-content-center mx-auto">
-                <Button sx={{ color: '#fff' }} onClick={() => { prevPage(); }} disabled={disabledprev}>prev</Button>
+                <Button sx={{ color: '#fff' }} onClick={() => { prevPage(people.previous); }} disabled={disabledprev}>prev</Button>
                 <div className="nav-numbers m-3">
                   <Numberspage count={people.count} />
                 </div>
-                <Button sx={{ color: '#fff' }} onClick={() => { if (people.next) { nextPage(); } }}>next</Button>
+                <Button sx={{ color: '#fff' }} onClick={() => { if (people.next) { nextPage(people.next); } }}>next</Button>
               </div>
             </>
-            )}
-          </div>
-          <div className="col-12 col-md-5">
-            <div className="yoda-frame">
-              <Reactyoda />
-            </div>
+          )}
+        </div>
+        <div className="col-12 col-md-5">
+          <div className="yoda-frame">
+            <Reactyoda />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

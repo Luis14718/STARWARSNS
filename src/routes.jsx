@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
 import Layout from './layout';
 import Home from './components/Home';
+import DetailComponent from './components/DetailComponent';
 // layouts
 
 export default function Router() {
@@ -12,8 +13,8 @@ export default function Router() {
       children: [
         { path: '', element: <Home /> },
         { path: '/home', element: <Home /> },
-        { path: '/character/', element: <>character1</> },
-        { path: '/character/:idcharacter', element: <>characterid</> },
+        { path: '/character/', element: <Home /> },
+        { path: '/character/:idcharacter', element: <DetailComponent /> },
       ],
     },
     {

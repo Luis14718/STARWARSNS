@@ -2,23 +2,23 @@ import actionTypes from './actionTypes';
 import initialStates from './initialStates';
 
 // eslint-disable-next-line default-param-last
-const planetsReducer = (state = initialStates, { type, payload }) => {
+const filmsReducer = (state = initialStates, { type, payload }) => {
   switch (type) {
-    case actionTypes.PLANETS_LOAD_START:
+    case actionTypes.FILMS_LOAD_START:
       return {
         ...state,
         isLoading: true,
-        planets: null,
+        films: null,
         errorMessage: null,
       };
 
-    case actionTypes.PLANETS_LOAD_SUCCESS:
+    case actionTypes.FILMS_LOAD_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        planets: payload,
+        films: payload,
       };
-    case actionTypes.PLANETS_LOAD_ERROR:
+    case actionTypes.FILMS_LOAD_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -28,4 +28,4 @@ const planetsReducer = (state = initialStates, { type, payload }) => {
       return state;
   }
 };
-export default planetsReducer;
+export default filmsReducer;

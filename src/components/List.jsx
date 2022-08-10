@@ -9,7 +9,7 @@ function List({ people }) {
   // const { isLoading, planets, errorMessage } = useSelector((state) => state.planets);
   return (
     <>
-      { people.map((person, i) => (
+      { people.map((person) => (
         <div className="col-12 col-md-6" key={person.name}>
           <Card variant="outlined" sx={{ borderRadius: '30px' }} className="mb-3 card-character">
             <>
@@ -25,7 +25,7 @@ function List({ people }) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Link to={`character/${i}`}><Button sx={{ color: '#f1e134', paddingTop: '20px' }} size="small">Enter</Button></Link>
+                <Link to={`character/${person.name}`}><Button sx={{ color: '#f1e134', paddingTop: '20px' }} size="small">Enter</Button></Link>
               </CardActions>
             </>
           </Card>

@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import logo from '../assets/logo.png';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['item', 'item 2', 'item 3'];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

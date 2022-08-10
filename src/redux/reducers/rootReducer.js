@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import peopleReducer from './people/people.reducer';
-import planetsReducer from './planets/planets.reducer';
+import filmsReducer from './films/films.reducer';
 
 const rooteReducer = () => combineReducers({
   people: peopleReducer,
-  planets: planetsReducer,
+  films: filmsReducer,
 });
 export default rooteReducer;

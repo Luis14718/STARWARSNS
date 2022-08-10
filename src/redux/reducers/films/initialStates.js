@@ -1,6 +1,6 @@
 const initialStates = {
   isLoading: false,
-  planets: null,
+  films: null,
   errorMessage: null,
 };
 
