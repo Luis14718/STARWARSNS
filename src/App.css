@@ -187,29 +187,6 @@ border: 1px solid;
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
-
-.MuiList-root .MuiList-padding .MuiMenu-list .css-6hp17o-MuiList-root-MuiMenu-list{
-  color:'#000' !important;
-}
-.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
-  background-color: black !important;
-  color:'#fff'; 
-}
-.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon{
-  color: rgba(250, 250, 250, 1) !important;
-  color:'#fff'; 
-}
-.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root
-{
-  color:rgba(250, 250, 250, 1) !important;
-  color:'#fff'; 
-}
-.css-1suyv42-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline{
-  border-color: #fff !important;
-}
-.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
-  color:rgba(250, 250, 250, 1) !important;
-}
 .films-box{
   background-color: white;
 }
@@ -291,7 +268,13 @@ border: 1px solid;
 .card-info *{
   color: #fff;
 }
-
+.search-field{
+  background-color: #fff;
+  border-radius: 35px;
+}
+.films-cat * {
+color: white !important;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

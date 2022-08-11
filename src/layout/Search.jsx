@@ -94,17 +94,19 @@ export default function Search() {
       <div className="row">
         <div className="col-12 col-md-6">
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>
-            <Searchstyle>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={(e) => searchengine(e.target.value)}
-              />
-            </Searchstyle>
-            <Box className="" sx={{ minWidth: 120 }}>
+            <div className="Search-field">
+              <Searchstyle>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                  onChange={(e) => searchengine(e.target.value)}
+                />
+              </Searchstyle>
+            </div>
+            <Box className="films-cat" sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel className={classes.inputField} id="films">FILMS</InputLabel>
                 <Select
@@ -119,12 +121,12 @@ export default function Search() {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={1}>Ten</MenuItem>
-                  <MenuItem value={2}>Twenty</MenuItem>
-                  <MenuItem value={3}>Thirty</MenuItem>
-                  <MenuItem value={4}>Thirty</MenuItem>
-                  <MenuItem value={5}>Thirty</MenuItem>
-                  <MenuItem value={6}>Thirty</MenuItem>
+                  <MenuItem value={1}>A New Hope</MenuItem>
+                  <MenuItem value={2}>The Empire Strikes Back</MenuItem>
+                  <MenuItem value={3}>Return of the Jedi</MenuItem>
+                  <MenuItem value={4}>The Phantom Menace</MenuItem>
+                  <MenuItem value={5}>Attack of the Clones</MenuItem>
+                  <MenuItem value={6}>Revenge of the Sith</MenuItem>
                 </Select>
               </FormControl>
             </Box>
